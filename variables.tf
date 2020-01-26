@@ -1,4 +1,4 @@
-variable "zone_id" {
+variable "cloudflare_zone" {
   type = string
 }
 
@@ -7,5 +7,9 @@ variable "dmarc" {
 }
 
 variable "dkim" {
+  type = string
+}
+
+variable "spf" {
   type = string
 }
