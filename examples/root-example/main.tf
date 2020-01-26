@@ -1,9 +1,8 @@
-module "mailgun_cloudflare" {
-  source = "github.com/adinhodovic/terraform-mailgun-cloudflare"
+module "gsuite" {
+  source = "github.com/adinhodovic/terraform-cloudflare-gsuite"
 
-  mailgun_domain = "mg.example.com"
-  zone_id        = "my-zone"
-  # Can't exceed 32 chars.
-  smtp_password = "very_secret"
-  spam_action   = "tag"
+  cloudflare_zone = "findwork.dev"
+  dmarc           = "v=DMARC1; p=quarantine; pct=5; rua=mailto:adin@honeylogic.io"
+  dkim            = "v=DKIM1; k=rsa; p=xyz"
+  spf             = "v=spf1 include:_spf.google.com ~all" # Allow Google's spf server
 }

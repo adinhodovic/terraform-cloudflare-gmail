@@ -39,7 +39,7 @@ resource "cloudflare_record" "gsuite_mx" {
 }
 
 resource "cloudflare_record" "gsuite_spf" {
-  count   = var.spf != "" ? 1 : 0
+  count   = var.spf != null ? 1 : 0
   zone_id = lookup(data.cloudflare_zones.default.zones[0], "id")
   name    = var.cloudflare_zone
   type    = "TXT"
@@ -47,7 +47,7 @@ resource "cloudflare_record" "gsuite_spf" {
 }
 
 resource "cloudflare_record" "gsuite_dkim" {
-  count   = var.dkim != "" ? 1 : 0
+  count   = var.dkim != null ? 1 : 0
   zone_id = lookup(data.cloudflare_zones.default.zones[0], "id")
   name    = "google._domainkey"
   type    = "TXT"
@@ -55,7 +55,7 @@ resource "cloudflare_record" "gsuite_dkim" {
 }
 
 resource "cloudflare_record" "gsuite_dmarc" {
-  count   = var.dmarc != "" ? 1 : 0
+  count   = var.dmarc != null ? 1 : 0
   zone_id = lookup(data.cloudflare_zones.default.zones[0], "id")
   name    = "_dmarc"
   type    = "TXT"

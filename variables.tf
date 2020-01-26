@@ -3,13 +3,16 @@ variable "cloudflare_zone" {
 }
 
 variable "dmarc" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "dkim" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "spf" {
-  type = string
+  type    = string
+  default = null
 }
