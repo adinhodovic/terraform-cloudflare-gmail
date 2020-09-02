@@ -25,7 +25,7 @@ variable "mx_records" {
 
 data "cloudflare_zones" "default" {
   filter {
-    name = format("%s*", var.cloudflare_zone)
+    name = var.cloudflare_zone
   }
 }
 
