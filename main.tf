@@ -34,7 +34,7 @@ resource "cloudflare_record" "gsuite_mx" {
   zone_id  = lookup(data.cloudflare_zones.default.zones[0], "id")
   name     = var.cloudflare_zone
   type     = "MX"
-  value    = lookup(var.mx_records[count.index], "address")
+  content  = lookup(var.mx_records[count.index], "address")
   priority = lookup(var.mx_records[count.index], "priority")
 }
 
@@ -43,7 +43,7 @@ resource "cloudflare_record" "gsuite_spf" {
   zone_id = lookup(data.cloudflare_zones.default.zones[0], "id")
   name    = var.cloudflare_zone
   type    = "TXT"
-  value   = var.spf
+  content = var.spf
 }
 
 resource "cloudflare_record" "gsuite_dkim" {
@@ -51,7 +51,7 @@ resource "cloudflare_record" "gsuite_dkim" {
   zone_id = lookup(data.cloudflare_zones.default.zones[0], "id")
   name    = "google._domainkey"
   type    = "TXT"
-  value   = var.dkim
+  content = var.dkim
 }
 
 resource "cloudflare_record" "gsuite_dmarc" {
@@ -59,5 +59,5 @@ resource "cloudflare_record" "gsuite_dmarc" {
   zone_id = lookup(data.cloudflare_zones.default.zones[0], "id")
   name    = "_dmarc"
   type    = "TXT"
-  value   = var.dmarc
+  content = var.dmarc
 }
