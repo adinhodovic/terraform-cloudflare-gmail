@@ -23,41 +23,45 @@ variable "mx_records" {
   ]
 }
 
-data "cloudflare_zones" "default" {
-  filter {
+data "cloudflare_zone" "default" {
+  filter = {
     name = var.cloudflare_zone
   }
 }
 
-resource "cloudflare_record" "gsuite_mx" {
+resource "cloudflare_dns_record" "gsuite_mx" {
   count    = length(var.mx_records)
-  zone_id  = lookup(data.cloudflare_zones.default.zones[0], "id")
+  zone_id  = data.cloudflare_zone.default.id
   name     = var.cloudflare_zone
   type     = "MX"
   content  = lookup(var.mx_records[count.index], "address")
   priority = lookup(var.mx_records[count.index], "priority")
+  ttl      = 1
 }
 
-resource "cloudflare_record" "gsuite_spf" {
+resource "cloudflare_dns_record" "gsuite_spf" {
   count   = var.spf != null ? 1 : 0
-  zone_id = lookup(data.cloudflare_zones.default.zones[0], "id")
+  zone_id = data.cloudflare_zone.default.id
   name    = var.cloudflare_zone
   type    = "TXT"
   content = var.spf
+  ttl     = 1
 }
 
-resource "cloudflare_record" "gsuite_dkim" {
+resource "cloudflare_dns_record" "gsuite_dkim" {
   count   = var.dkim != null ? 1 : 0
-  zone_id = lookup(data.cloudflare_zones.default.zones[0], "id")
+  zone_id = data.cloudflare_zone.default.id
   name    = "google._domainkey"
   type    = "TXT"
   content = var.dkim
+  ttl     = 1
 }
 
-resource "cloudflare_record" "gsuite_dmarc" {
+resource "cloudflare_dns_record" "gsuite_dmarc" {
   count   = var.dmarc != null ? 1 : 0
-  zone_id = lookup(data.cloudflare_zones.default.zones[0], "id")
+  zone_id = data.cloudflare_zone.default.id
   name    = "_dmarc"
   type    = "TXT"
   content = var.dmarc
+  ttl     = 1
 }
