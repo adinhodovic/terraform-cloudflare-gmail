@@ -1,24 +1,8 @@
 variable "mx_records" {
   default = [
     {
-      address  = "aspmx.l.google.com"
+      address  = "smtp.google.com"
       priority = 1
-    },
-    {
-      address  = "alt1.aspmx.l.google.com"
-      priority = 5
-    },
-    {
-      address  = "alt2.aspmx.l.google.com"
-      priority = 5
-    },
-    {
-      address  = "aspmx2.googlemail.com"
-      priority = 10
-    },
-    {
-      address  = "aspmx3.googlemail.com"
-      priority = 10
     },
   ]
 }
